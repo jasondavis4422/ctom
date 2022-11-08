@@ -42,4 +42,4 @@ console.log(stimulus_set[3].trial_arr);
 console.log(stimulus_set[3].video_arr);
 // This is the paradigm for tracking participant data with their respective images and videos per trial.
 // I hard-coded num_of_trials, num_of_pairs, num_of_images, and num_of_videos to get a general idea of the code, but this stimulus set
-// will depend on what information is available. 
+// will depend on what information is available. Finally, this seems to be working. I don't know what the hell this issue is.
