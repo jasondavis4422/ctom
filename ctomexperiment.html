@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Collaborative Theory of Mind </title>
+</head>
+<body>
+    <!-- Additional Necessary Tasks: telling time maybe using while-statement, randomize subject data-->
+    <h1> Collaborative Theory of Mind Task </h1>
+    <h2> Welcome to the colloaborative theory of mind task. In this online experiment, you will be assessing the traits of the people given their 
+        faces, videos of their stories, and your assessment with a peer. Before beginning this experiment, you must register your name, email, and 
+        ID below in the subboxes. </h2>
+    <h4> Name: </h4> 
+    <input type="text" id="Name" name="Name" size="40">
+    <h4> Email: </h4>    
+    <input type="text" id="Email" name="Email" size="40">
+    <h4> ID: </h4>  
+    <input type="text" id="ID" name="ID" size="40">
+
+    <h2> For this part of this experiment, you will look at the image and answer the following questions about the traits of this person based on their faces. </h2>
+    <img src="https://images.unsplash.com/photo-1426604966848-d7adac402bff?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjExMDk0fQ&auto=format&fit=crop&w=1050&q=80" />
+    <script>
+      document.addEventListener("DOMContentLoaded", function() 
+      {
+        let lazyloadImages = document.querySelectorAll("img.lazy-load");
+        let lazyloadThrottleTimeout;
+        function lazyload() 
+        {
+          if(lazyloadThrottleTimeout) 
+          {
+            clearTimeout(lazyloadThrottleTimeout);
+          }
+          lazyloadThrottleTimeout = setTimeout(function() 
+          {
+            let scrollTop = window.pageYOffset;
+            lazyloadImages.forEach(function(img) 
+            {
+              if(img.offsetTop < (window.innerHeight + scrollTop))
+               {
+                img.src = img.dataset.src;
+                img.classList.remove('lazy');
+              }
+            });
+            if(lazyloadImages.length == 0) 
+            {
+              document.removeEventListener("scroll", lazyload);
+              window.removeEventListener("resize", lazyload);
+              window.removeEventListener("orientationChange", lazyload);
+            }
+          }, 20);
+        }
+        document.addEventListener("scroll", lazyload);
+        window.addEventListener("resize", lazyload);
+        window.addEventListener("orientationChange", lazyload);
+      });
+    </script>
+
+    <h4> How ______ is this person? </h4>
+      <div class = "rangeslider">
+        <input type = "range" min = "1" max = "100" value = "1" class = "myslider" id = "sliderRange1">
+        <p> Value: <span id ="demo1"> </span> </p>
+      </div>
+        
+      <script>
+      var rangeslider1 = document.getElementById("sliderRange1");
+      var output1 = document.getElementById("demo1");
+      output1.innerHTML = rangeslider1.value;
+        
+      rangeslider1.oninput = function() 
+      {
+        output1.innerHTML = this.value;
+      }
+      </script>
+    
+    <h4> How ______ is this person? </h4> 
+      <div class = "rangeslider">
+        <input type = "range" min = "1" max = "100" value = "1" class = "myslider" id = "sliderRange2">
+        <p> Value: <span id = "demo2"> </span> </p>
+     </div>
+    
+  <script>
+  var rangeslider2 = document.getElementById("sliderRange2");
+  var output2 = document.getElementById("demo2");
+  output2.innerHTML = rangeslider2.value;
+    
+  rangeslider2.oninput = function() 
+  {
+    output2.innerHTML = this.value;
+  }
+  </script>
+
+    <h4> How ______ is this person? </h4>
+      <div class = "rangeslider">
+        <input type = "range" min = "1" max = "100" value = "1" class = "myslider" id = "sliderRange3">
+        <p> Value: <span id="demo3"></span></p>
+      </div>
+        
+      <script>
+      var rangeslider3 = document.getElementById("sliderRange3");
+      var output3 = document.getElementById("demo3");
+      output3.innerHTML = rangeslider3.value;
+        
+      rangeslider3.oninput = function() 
+      {
+        output3.innerHTML = this.value;
+      }
+      </script>
+
+    <h4> How ______ is this person? </h4>
+      <div class="rangeslider">
+            <input type = "range" min = "1" max = "100" value = "1" class = "myslider" id = "sliderRange4">
+            <p> Value: <span id = "demo4"> </span> </p>
+          </div>
+            
+      <script>
+          var rangeslider4 = document.getElementById("sliderRange4");
+          var output4 = document.getElementById("demo4");
+          output4.innerHTML = rangeslider4.value;
+          rangeslider4.oninput = function() 
+          {
+            output4.innerHTML = this.value;
+          }
+      </script>
+
+    <h4> How ______ is this person? </h4>
+      <div class = "rangeslider"> 
+        <input type = "range" min = "1" max = "100" value = "1" class = "myslider" id = "sliderRange5">
+        <p> Value: <span id = "demo5"></span></p>
+      </div>
+        
+      <script>
+      var rangeslider5 = document.getElementById("sliderRange5");
+      var output5 = document.getElementById("demo5");
+      output5.innerHTML = rangeslider5.value;
+      rangeslider5.oninput = function() 
+      {
+        output5.innerHTML = this.value;
+      }
+      </script>
+    <!-- add next button here that hyperlinks to the next section of the experiment-->
+
+    <h2> For this part of this experiment, you will watch the video on the screen and answer the following questions about the traits of the person based on their story.</h2>
+   <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+    <div id="player"></div>
+
+    <script>
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+          videoId: '8rSH8-pbHZ0',
+          playerVars: {
+            'playsinline': 1
+          },
+          events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+          }
+        });
+      }
+
+      // 4. The API will call this function when the video player is ready.
+      function onPlayerReady(event) {
+        event.target.playVideo();
+      }
+
+      // 5. The API calls this function when the player's state changes.
+      //    The function indicates that when playing a video (state=1),
+      //    the player should play for six seconds and then stop.
+      var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          setTimeout(stopVideo, 6000);
+          done = true;
+        }
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
+    </script>
+
+    <h4> How _____ is this person? </h4> 
+    <div class = "rangeslider">
+        <input type = "range" min = "1" max = "100" value = "1" class = "myslider" id = "sliderRange6">
+        <p> Value: <span id = "demo6"></span></p>
+      </div>
+        
+      <script>
+      var rangeslider6 = document.getElementById("sliderRange6");
+      var output6 = document.getElementById("demo6");
+      output6.innerHTML = rangeslider6.value;
+      rangeslider6.oninput = function() 
+      {
+        output6.innerHTML = this.value;
+      }
+      </script>
+
+    <h4> How _____ is this person? </h4>
+    <div class = "rangeslider">
+        <input type = "range" min = "1" max = "100" value = "1" class = "myslider" id = "sliderRange7">
+        <p> Value: <span id = "demo7"></span></p>
+      </div>
+        
+      <script>
+      var rangeslider7 = document.getElementById("sliderRange7");
+      var output7 = document.getElementById("demo7");
+      output7.innerHTML = rangeslider7.value;
+      rangeslider7.oninput = function() 
+      {
+        output7.innerHTML = this.value;
+      }
+      </script>
+
+    <h4> How _____ is this person? </h4> 
+    <div class = "rangeslider">
+        <input type = "range" min = "1" max = "100" value = "1" class = "myslider" id = "sliderRange8">
+        <p> Value: <span id="demo8"></span></p>
+      </div>
+        
+      <script>
+      var rangeslider8 = document.getElementById("sliderRange8");
+      var output8 = document.getElementById("demo8");
+      output8.innerHTML = rangeslider8.value;
+      rangeslider8.oninput = function() 
+      {
+        output8.innerHTML = this.value;
+      }
+      </script>
+
+    <h4> How _____ is this person? </h4>
+    <div class = "rangeslider">
+        <input type = "range" min = "1" max = "100" value = "1" class = "myslider" id = "sliderRange9">
+        <p> Value: <span id = "demo9"></span></p>
+      </div>
+        
+      <script>
+      var rangeslider9 = document.getElementById("sliderRange9");
+      var output9 = document.getElementById("demo9");
+      output9.innerHTML = rangeslider9.value;
+      rangeslider9.oninput = function() 
+      {
+        output9.innerHTML = this.value;
+      }
+      </script>
+
+    <h4> How _____ is this person? </h4> 
+    <div class = "rangeslider">
+        <input type = "range" min = "1" max = "100" value = "1" class = "myslider" id = "sliderRange10">
+        <p>Value: <span id = "demo10"></span></p>
+      </div>
+        
+      <script>
+      var rangeslider10 = document.getElementById("sliderRange10");
+      var output10 = document.getElementById("demo10");
+      output10.innerHTML = rangeslider10.value;
+      rangeslider10.oninput = function() 
+      {
+        output10.innerHTML = this.value;
+      }
+      </script>
+
+    <!-- add next button here that hyperlink to the next section of the experiment-->
+    <!-- wait for the participant to talk with their partner and record their responses-->
+
+    <h2> Finally, after listening to comments from your partner, please provide your trait inferences. </h2>
+    <h4> How ____ is this person? </h4>
+    <div class = "rangeslider">
+        <input type = "range" min = "1" max = "100" value = "1" class = "myslider" id = "sliderRange11">
+        <p>Value: <span id = "demo11"></span></p>
+      </div>
+        
+      <script>
+      var rangeslider11 = document.getElementById("sliderRange11");
+      var output11 = document.getElementById("demo11");
+      output11.innerHTML = rangeslider11.value;
+      rangeslider11.oninput = function() 
+      {
+        output11.innerHTML = this.value;
+      }
+      </script>
+
+    <h4> How _____ is this person? </h4>
+    <div class = "rangeslider">
+        <input type = "range" min = "1" max = "100" value = "1" class = "myslider" id = "sliderRange12">
+        <p> Value: <span id ="demo12"></span></p>
+      </div>
+        
+      <script>
+      var rangeslider12 = document.getElementById("sliderRange12");
+      var output12 = document.getElementById("demo12");
+      output12.innerHTML = rangeslider12.value;
+      rangeslider12.oninput = function() 
+      {
+        output12.innerHTML = this.value;
+      }
+      </script>
+
+    <h4> How _____ is this person? </h4>
+    <div class="rangeslider">
+        <input type = "range" min = "1" max = "100" value = "1" class = "myslider" id = "sliderRange13">
+        <p> Value: <span id = "demo13"></span></p>
+      </div>
+        
+      <script>
+      var rangeslider13 = document.getElementById("sliderRange13");
+      var output13 = document.getElementById("demo13");
+      output13.innerHTML = rangeslider13.value;
+      rangeslider13.oninput = function() 
+      {
+        output13.innerHTML = this.value;
+      }
+      </script>
+
+    <h4> How _____ is this person? </h4>
+    <div class="rangeslider">
+        <input type = "range" min = "1" max = "100" value="1" class ="myslider" id = "sliderRange14">
+        <p>Value: <span id = "demo14"></span></p>
+      </div>
+        
+      <script>
+      var rangeslider14 = document.getElementById("sliderRange14");
+      var output14 = document.getElementById("demo14");
+      output14.innerHTML = rangeslider14.value;
+      rangeslider14.oninput = function() 
+      {
+        output14.innerHTML = this.value;
+      }
+      </script>
+
+    <h4> How _____ is this person? </h4>
+    <div class = "rangeslider">
+        <input type = "range" min = "1" max = "100" value = "1" class = "myslider" id = "sliderRange15">
+        <p>Value: <span id = "demo15"></span></p>
+      </div>
+        
+      <script>
+      var rangeslider15 = document.getElementById("sliderRange15");
+      var output15 = document.getElementById("demo15");
+      output15.innerHTML = rangeslider15.value;
+      rangeslider15.oninput = function() 
+      {
+        output15.innerHTML = this.value;
+      }
+      </script>
+
+    <!-- add next button-->
+    <h2> Thank you for completing the experiment! We appreciate your time and effort in being a participant in this experiment, and we hope
+        to see you again in the future!</h2>
