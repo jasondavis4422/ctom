@@ -1,3 +1,50 @@
+// Paradigm: 
+// Introduction
+// Consent Page
+// nextPage()
+// Fill-in Information - save information to participant_set
+// nextPage()
+// Trial() - contains image --> nextPart() --> video --> nextPart() --> colloborative video ratings --> nextTrial() * 5
+// End Page
+// need to add a progress bar for nextTrial + nextPage + (maybe nextPart);
+// need to use addEventListener to add in event functions based off clicks, movements, etc. (just like pain sliders)
+// need to load in images and videos to be able to use (just like kung Fury)
+// need to add in 
+// Useful Slider Code: 
+// output12.innerHTML = rangeslider12.value;
+//rangeslider12.oninput = function()
+// output.innerHTML = this.value;
+//
+//
+// Participant Information
+const participant_set = [];
+class Participant_Set
+{
+    constructor()
+    {
+        this.name = "";
+        this.ID = "";
+        this.age = 0;
+    }
+    updateName (newName)
+    {
+        this.name = newName;
+    }
+    updateID (newID)
+    {
+        this.ID = newID;
+    }
+    updateAge (newAge)
+    {
+        this.age = newAge;
+    }
+}
+const subject = new Participant_Set()
+participant_set.push(subject);
+participant_set[0].updateName("Jason");
+
+
+// Stimulus Set Information
 var num_of_pairs = 5;
 var num_of_trials = 5;
 var num_of_images = 30;
@@ -37,10 +84,76 @@ function getRandomInt(max)
 {
     return Math.floor(Math.random() * max);
 }
-console.log(stimulus_set[3].image_arr);
-console.log(stimulus_set[3].trial_arr);
-console.log(stimulus_set[3].video_arr);
-// This is the paradigm for tracking participant data with their respective images and videos per trial.
-// I hard-coded num_of_trials, num_of_pairs, num_of_images, and num_of_videos to get a general idea of the code, but this stimulus set
-// will depend on what information is available. Finally, this seems to be working. I don't know what the hell this issue is. So then, if I have
-// any issues , then I will let anyone here know. This is super interesting.
+
+
+//Data Set Information
+const data_set = [];
+class Data_By_Person 
+{
+constructor(person)
+{
+    this.personnum = person;
+    this.img_ratings = [];
+    this.vid_ratings = [];
+    this.collab_vid_ratings = [];
+    this.pair_id = 0;
+    if (person == 1)
+    {
+        this.pair_id = 1;
+    }
+    if (person % 2 != 0)
+    {
+        this.pair_id = (person/2) + 0.5;
+    }
+    else
+    {
+        this.pair_id = person/2;
+    }
+}
+addNewRating(input, which_dataset)
+{
+   if (which_dataset == 1)
+   {
+    this.img_ratings.push(input);
+   }
+   if (which_dataset == 2)
+   {
+    this.vid_ratings.push(input);
+   }
+   else
+   {
+    this.collab_vid_ratings.push(input);
+   }
+}
+
+}
+const data_person = new Data_By_Person (7);
+data_set.push(data_person);
+console.log(data_set[0].pair_id);
+data_set[0].addNewRating(29, 1);
+data_set[0].addNewRating(22, 2);
+console.log(data_set[0].img_ratings, data_set[0].vid_ratings);
+
+// Slider Information
+// Need to add a checkifUsed function to determine whether the slider has been used and return the corresponding information.
+// I think this is already part of the rangeSlider class as seen in my HTML, but I am not actually sure.
+class rangeSlider 
+{
+    constructor ()
+    {
+        this.defaultvalue = 1;
+        this.used = false;
+    }
+    updateValue (input)
+    {
+        this.defaultvalue = input;
+        this.used = true;
+    }
+    returnValue ()
+    {
+        return this.defaultvalue;
+    }
+
+}
+
+
