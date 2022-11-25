@@ -16,9 +16,9 @@
 // output.innerHTML = this.value;
 //
 //
-// Participant Information
+// Participant Information - need to make ParticipantSet an array of Participants
 const participant_set = [];
-class Participant_Set
+class Participant
 {
     constructor()
     {
@@ -26,69 +26,50 @@ class Participant_Set
         this.ID = "";
         this.age = 0;
     }
-    updateName (newName)
-    {
-        this.name = newName;
-    }
-    updateID (newID)
-    {
-        this.ID = newID;
-    }
-    updateAge (newAge)
-    {
-        this.age = newAge;
-    }
 }
-const subject = new Participant_Set()
+const subject = new Participant()
 participant_set.push(subject);
-participant_set[0].updateName("Jason");
 
-
-// Stimulus Set Information
-var num_of_pairs = 5;
-var num_of_trials = 5;
-var num_of_images = 30;
-var num_of_videos = 30;
-const image_array = [];
-const video_array = [];
-const trial_array = [];
+// Stimulus Set Information - need to make StimulusSet an array of Stimuluses
 const stimulus_set = [];
-class Stimulus_Set 
+class Stimulus
 {
-constructor(pair_id, trial_array, image_array, video_array)
+constructor(pair_id)
 {
+    this.num_of_pairs = 5;
+    this.num_of_trials = 5;
+    this.num_of_images = 30;
+    this.num_of_videos = 30;
     this.pair_num = pair_id;
-    this.trial_arr = trial_array;
-    this.image_arr = image_array;
-    this.video_arr = video_array;
+    this.trial_arr = [];
+    this.image_arr = [];
+    this.video_arr = [];
 
 }
-}
-for (var pair_id = 1; pair_id < num_of_pairs; pair_id++)
+randomGenerate()
 {
-    for (var trial_number = 1; trial_number < num_of_trials; trial_number++)
+    for (var trial_number = 0; trial_number < this.num_of_trials; trial_number++)
     {
-   var image_set = getRandomInt(num_of_images);
-   var video_set = getRandomInt(num_of_videos);
-   console.log("Image:" + image_set);
-   console.log("Video:" + video_set);
-   console.log(" ");
-   image_array[trial_number] = image_set;
-   video_array[trial_number] = video_set;
-   trial_array[trial_number] = trial_number;
+        var image_set = Math.floor(Math.random() * this.num_of_images);
+        var video_set = Math.floor(Math.random() * this.num_of_videos);
+        console.log("Image:" + image_set);
+        console.log("Video:" + video_set);
+        console.log(" ");
+        this.image_arr[trial_number] = image_set;
+        this.video_arr[trial_number] = video_set;
+        this.trial_arr[trial_number] = trial_number;
     }
- const Pair = new Stimulus_Set (pair_id, trial_array, image_array, video_array);
- stimulus_set.push(Pair);
 }
-function getRandomInt(max) 
-{
-    return Math.floor(Math.random() * max);
 }
+const Pair = new Stimulus (1);
+Pair.randomGenerate();
+stimulus_set.push(Pair);
+console.log(Pair.image_arr);
 
 
-//Data Set Information
+//Data Set Information - make Collective_Data an array of Indiv_Data
 const data_set = [];
-class Data_By_Person 
+class Individual_Data
 {
 constructor(person)
 {
@@ -125,15 +106,7 @@ addNewRating(input, which_dataset)
     this.collab_vid_ratings.push(input);
    }
 }
-
 }
-const data_person = new Data_By_Person (7);
-data_set.push(data_person);
-console.log(data_set[0].pair_id);
-data_set[0].addNewRating(29, 1);
-data_set[0].addNewRating(22, 2);
-console.log(data_set[0].img_ratings, data_set[0].vid_ratings);
-
 // Slider Information
 // Need to add a checkifUsed function to determine whether the slider has been used and return the corresponding information.
 // I think this is already part of the rangeSlider class as seen in my HTML, but I am not actually sure.
@@ -155,5 +128,15 @@ class rangeSlider
     }
 
 }
+var page_number = 1;
+function nextPage (page_number)
+{
+    if (page_number < 4)
+    {
+        page_number += 1;
+    }
+    
 
-
+}
+// 5 Pages: Introduction (0), Consent Page (1), Fill-In(2), Trials(3), End Page(4)
+// 5 Trials: generate the stimulus set before beginning the trials, save the trial
