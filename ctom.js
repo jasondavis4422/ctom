@@ -27,7 +27,7 @@ class Participant
         this.age = 0;
     }
 }
-const subject = new Participant()
+const subject = new Participant();
 participant_set.push(subject);
 
 // Stimulus Set Information - need to make StimulusSet an array of Stimuluses
