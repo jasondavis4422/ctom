@@ -1,20 +1,84 @@
 //check if on browser or server
 if (typeof window !== 'undefined') {
-    console.log('You are on the browser')
-  } else {
-    console.log('You are on the server')
-  }
-
-var range_slider_list = document.getElementsByClassName("myslider");
-var output_list = document.getElementsByClassName("demo");
-for (var i = 0; i < range_slider_list.length; i++) {
-    var range_slider = range_slider_list[i];
-    var output = output_list[i];
-    output.innerHTML = range_slider.value;
-    range_slider.addEventListener("input", function () {
-        console.log("clicked");
-        output.innerHTML = range_slider.value;
-
-    }
-    )
+  console.log('You are on the browser')
+} else {
+  console.log('You are on the server')
 }
+
+var img_trial_count = 0;
+const data_set = [];
+class Individual_Data {
+  constructor() {
+    this.img_ratings = [];
+    this.vid_ratings = [];
+    this.collab_vid_ratings = [];
+  }
+  addNewRating(input, which_dataset) {
+    if (which_dataset == 1) {
+      this.img_ratings.push(input);
+    }
+    if (which_dataset == 2) {
+      this.vid_ratings.push(input);
+    }
+    if (which_dataset == 3) {
+      this.collab_vid_ratings.push(input);
+    }
+  }
+}
+
+var recording = new Individual_Data();
+var range_slider_list = document.getElementsByClassName("rangeslider");
+for (k = 0; k < range_slider_list.length; k++) {
+  var rangeslider = document.getElementById("sliderRange" + k.toString());
+  var output = document.getElementById("demo" + k.toString());
+  output.innerHTML = rangeslider.value;
+}
+document.getElementById("sliderRange0").addEventListener("input", function () {
+  document.getElementById("demo0").innerHTML = this.value;
+  var used = true;
+})
+document.getElementById("sliderRange1").addEventListener("input", function () {
+  document.getElementById("demo1").innerHTML = this.value;
+  var used = true;
+})
+document.getElementById("sliderRange2").addEventListener("input", function () {
+  document.getElementById("demo2").innerHTML = this.value;
+  var used = true;
+})
+document.getElementById("sliderRange3").addEventListener("input", function () {
+  document.getElementById("demo3").innerHTML = this.value;
+  var used = true;
+})
+document.getElementById("sliderRange4").addEventListener("input", function () {
+  document.getElementById("demo4").innerHTML = this.value;
+  var used = true;
+})
+
+function save_rating_data() {
+  for (i = 0; i < range_slider_list.length; i++) {
+    rating = document.getElementById("sliderRange" + i.toString()).value;
+    recording.addNewRating(rating, 1);
+
+  }
+  data_set.push(recording);
+  if (localStorage.getItem('data_set') == null) {
+    localStorage.setItem('data_set', '[]');
+  }
+  var recordings = JSON.parse(localStorage.getItem('data_set'));
+  recordings.push(recording);
+  localStorage.setItem('data_set', JSON.stringify(recordings));
+}
+
+function load_next_page() {
+  window.location = "/drafts/ctomexperiment.html";
+}
+
+var next_button = document.getElementsByClassName("next-page")[0];
+next_button.addEventListener('click', function () {
+  save_rating_data();
+  load_next_page();
+  img_trial_count++;
+}
+)
+setTimeout(save_rating_data, 300000);
+setTimeout(load_next_page, 300000);

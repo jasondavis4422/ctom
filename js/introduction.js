@@ -8,7 +8,7 @@ var next_button = document.getElementsByClassName("next-intro")[0];
 var input_name = document.getElementById("Name");
 var input_ID = document.getElementById("ID");
 function load_next_page() {
-    window.location = "/drafts/ctomexperiment.html";
+    window.location = "/html/trials.html";
 }
 function save_participant_data() {
     const name = input_name.value;
@@ -54,5 +54,5 @@ next_button.addEventListener('click', function () {
     load_next_page();
 }
 )
-setTimeout(save_participant_data, 30000);
-setTimeout(load_next_page, 30000);
+setTimeout(save_participant_data, 300000);
+setTimeout(load_next_page, 300000);
