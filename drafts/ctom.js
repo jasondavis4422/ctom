@@ -1,22 +1,4 @@
-// Paradigm: 
-// Introduction
-// Consent Page
-// nextPage()
-// Fill-in Information - save information to participant_set
-// nextPage()
-// Trial() - contains image --> nextPart() --> video --> nextPart() --> colloborative video ratings --> nextTrial() * 5
-// End Page
-// need to add a progress bar for nextTrial + nextPage + (maybe nextPart);
-// need to use addEventListener to add in event functions based off clicks, movements, etc. (just like pain sliders)
-// need to load in images and videos to be able to use (just like kung Fury)
-// need to add in 
-// Useful Slider Code: 
-// output12.innerHTML = rangeslider12.value;
-//rangeslider12.oninput = function()
-// output.innerHTML = this.value;
-//
-//
-// Participant Information - need to make ParticipantSet an array of Participants
+
 const participant_set = [];
 class Participant {
     constructor() {
