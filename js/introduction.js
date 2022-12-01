@@ -8,9 +8,11 @@ var next_button = document.getElementsByClassName("next-intro")[0];
 var input_name = document.getElementById("Name");
 var input_ID = document.getElementById("ID");
 function load_next_page() {
-    window.location = "/html/trials.html";
+    window.location = "/html/img_trials.html";
 }
-function save_participant_data() {
+
+function save_participant_data() 
+{
     const name = input_name.value;
     const ID = input_ID.value;
     if (name && ID) {

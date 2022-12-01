@@ -5,7 +5,6 @@ if (typeof window !== 'undefined') {
   console.log('You are on the server')
 }
 
-var img_trial_count = 0;
 const data_set = [];
 class Individual_Data {
   constructor() {
@@ -70,14 +69,24 @@ function save_rating_data() {
 }
 
 function load_next_page() {
-  window.location = "/drafts/ctomexperiment.html";
+  window.location.href = "/html/vid_trials.html";
 }
 
+
+
 var next_button = document.getElementsByClassName("next-page")[0];
-next_button.addEventListener('click', function () {
+next_button.addEventListener('click', function (event) {
+  for (i = 0; i < range_slider_list.length; i++) {
+    rating = document.getElementById("sliderRange" + i.toString()).value;
+    if (rating == 1){ 
+      alert('Please answer all the questions')
+      var button = event.target;
+      button.stopPropagation();
+    }
+
+  }
   save_rating_data();
   load_next_page();
-  img_trial_count++;
 }
 )
 setTimeout(save_rating_data, 300000);
