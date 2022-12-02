@@ -12,7 +12,7 @@ class Individual_Data {
   constructor() {
     this.img_ratings = [];
     this.vid_ratings = [];
-    this.collab_vid_ratings = [];
+    this.collab_ratings = [];
   }
   addNewRating(input, which_dataset) {
     if (which_dataset == 1) {
@@ -22,7 +22,7 @@ class Individual_Data {
       this.vid_ratings.push(input);
     }
     if (which_dataset == 3) {
-      this.collab_vid_ratings.push(input);
+      this.collab_ratings.push(input);
     }
   }
 }
