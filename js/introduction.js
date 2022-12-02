@@ -57,7 +57,7 @@ class Stimuli {
   }
 
 //set seed order *IMPORTANT --> MUST DO BEFORE EXPERIMENT GOES LIVE
-temp_intro = new Stimuli(0);
+temp_intro = new Stimuli(5);
 if (localStorage.getItem('seed') == null) {
     localStorage.setItem('seed', temp_intro.seed);
 }

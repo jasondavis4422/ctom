@@ -41,8 +41,8 @@ class Stimuli {
       this.seed = seed;
     }
     this.num_of_trials = 3;
-    this.image_arr = ["A", "B", "C"];
-    this.video_arr = ["D", "E", "F"];
+    this.image_arr = ["/images/image1.jpeg", "/images/image2.jpeg", "/images/image3.jpeg"];
+    this.video_arr = ["/images/image1.jpeg", "/images/image2.jpeg", "/images/image3.jpeg"];
     this.seed_arr = ["012", "021", "120", "102", "210", "201"];
   }
   randomGenerate() {
@@ -80,9 +80,14 @@ class Stimuli {
 if (localStorage.getItem('img_trial_number') == null) {
   localStorage.setItem('img_trial_number', '0')
 }
+
 var temp_img_info = new Stimuli(parseInt(localStorage.getItem('seed')));
 image_trial_number = parseInt(localStorage.getItem('img_trial_number'));
-console.log(temp_img_info.generateNextImage(image_trial_number));
+var imgButton = document.getElementById('img-button');
+imgButton.addEventListener('click', function()
+{
+  document.getElementById('images').src = temp_img_info.generateNextImage(image_trial_number);
+})
 
 //grabs each slider and allows for ratings
 var recording = new Individual_Data();

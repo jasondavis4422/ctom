@@ -107,13 +107,13 @@ next_button.addEventListener('click', function (event) {
   var trial = parseInt(localStorage.getItem('collab_trial_number'));
   if (trial < num_of_trials) {
     load_next_trial();
-    setTimeout(load_next_trial, 300000);
+    setTimeout(load_next_trial, 600000);
   }
   if (trial == num_of_trials) {
     load_end_page();
-    setTimeout(load_end_page, 300000);
+    setTimeout(load_end_page, 600000);
   }
 }
 )
-setTimeout(save_rating_data, 300000);
-setTimeout(save_stimulus_data, 300000);
+setTimeout(save_rating_data, 600000);
+setTimeout(save_stimulus_data, 600000);
