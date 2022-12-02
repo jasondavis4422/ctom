@@ -126,3 +126,128 @@ function currentTime() {
 }
 currentTime();
 //<div id = "clock" onload="currentTime()"></div>// (HTML Code)
+
+//check if on browser or server
+if (typeof window !== 'undefined') {
+    console.log('You are on the browser')
+  } else {
+    console.log('You are on the server')
+  }
+  
+  var message_3 = '[{"name":"Jason","ID":"f005g23"},{"name":"Jason","ID":"f005g23"}]';
+  var message_2 = "What is up"
+  message_3 = message_3.replace(/{/g, "");
+  message_3 = message_3.replace(/}/g, "");
+  //message = message.replace(/"["/g, "");
+  message_3 = message_3.replace(/"/g, "");
+  message_3 = message_3.replace(/:/g, "");
+  
+  //index = message.indexOf("name")
+  const myArray = message_3.split(",");
+  console.log(myArray);
+  name_array = [];
+  ID_array = [];
+  for (e = 0; e < myArray.length; e++) {
+  str = myArray[e];
+  if (str.includes("name") == true) {
+    str = str.replace("name", "");
+    name_array.push(str);
+  }
+  if (str.includes("ID") == true) {
+    str = str.replace("ID", "")
+    ID_array.push(str);
+  
+  }
+  }
+  //console.log(name_array);
+  //console.log(ID_array);
+  
+  var message_4 = '[{"img_ratings":["66","37","68","35","70"],"vid_ratings":[],"collab_vid_ratings":[]},{"img_ratings":[],"vid_ratings":["38","71","33","46","60"],"collab_vid_ratings":[]},{"img_ratings":[],"vid_ratings":[],"collab_vid_ratings":["30","70","36","64","46"]},{"img_ratings":["73","43","70","50","52"],"vid_ratings":[],"collab_vid_ratings":[]},{"img_ratings":[],"vid_ratings":["36","47","29","51","51"],"collab_vid_ratings":[]},{"img_ratings":[],"vid_ratings":[],"collab_vid_ratings":["52","72","59","36","15"]},{"img_ratings":["14","19","52","83","59"],"vid_ratings":[],"collab_vid_ratings":[]},{"img_ratings":[],"vid_ratings":["36","61","41","48","50"],"collab_vid_ratings":[]},{"img_ratings":[],"vid_ratings":[],"collab_vid_ratings":["34","65","35","69","59"]}]';
+  message_4 = message_4.replace(/{/g, "");
+  message_4 = message_4.replace(/}/g, "");
+  //message = message.replace(/"["/g, "");
+  message_4 = message_4.replace(/"/g, "");
+  message_4 = message_4.replace(/:/g, "");
+  //console.log(message_4);
+  const myArray2 = message_4.split(",");
+  //console.log(myArray2);
+  for (e = 0; e < myArray2.length; e++) {
+     str = myArray2[e];
+     if (str.includes('img_ratings') == true)
+     {
+      str = str.replace("img_ratings", "");
+      myArray2[e] = str;
+     }
+     if (str.includes('vid_ratings') == true)
+     {
+      str = str.replace("vid_ratings", "");
+      myArray2[e] = str;
+     }
+     if (str.includes('collab_ratings') == true)
+     {
+      str = str.replace("collab_ratings", "");
+      myArray2[e] = str;
+     }
+    }
+  
+  console.log(myArray2);
+  img_ratings = [];
+  vid_ratings = [];
+  
+  for (array_type = 0; array_type < 2; array_type++) {
+    num_of_ratings = 0;
+    if (array_type == 0) {
+      while (num_of_ratings < 3) {
+        img_ratings.push(myArray2[0])
+        myArray2.splice(0, 1);
+        num_of_ratings++;
+      }
+    }
+    if (array_type == 1) {
+      while (num_of_ratings < 3) {
+        vid_ratings.push(myArray2[0])
+        myArray2.splice(0, 1);
+        num_of_ratings++;
+      }
+    }
+  //add array type 2 for collab_ratings, add for loop for number of trials arround the array_type
+  }
+  console.log(img_ratings);
+  console.log(vid_ratings);
+  console.log(myArray2);
+  
+  
+  
+  //loads next page
+  function load_next_page() {
+    window.location = "introduction.html";
+  }
+  //automatically loads next page after 5 mins
+  setTimeout(load_next_page, 300000);
+  
+  //what happens when we click "NEXT"
+  var next_button = document.getElementsByClassName("next-end")[0];
+  next_button.addEventListener('click', function () {
+    remove_trial_numbers();
+    var participant_data = localStorage.getItem('participant_set');
+    var rating_data = localStorage.getItem('data_set');
+   // var stimulus_data = localStorage.getItem('stimulus_set'); haven't made stimulus set
+    //grab_and_fix_data(participant_data, rating_data, stimulus_data); haven't finished grab _and_fix_data
+    load_next_page();
+  })
+  
+  //clears temporary trial numbers for next participant
+  function remove_trial_numbers() {
+    localStorage.removeItem('img_trial_number');
+    localStorage.removeItem('vid_trial_number');
+    localStorage.removeItem('collab_trial_number');
+  }
+  
+  function grab_and_fix_data(participant_data, rating_data, stimulus_data)
+  {
+   participant_data
+   rating_data
+   stimulus_data
+  }
+  //need to make function that grabs the string for the participant_set
+  
