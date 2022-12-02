@@ -5,6 +5,7 @@ if (typeof window !== 'undefined') {
   console.log('You are on the server')
 }
 
+//constructs data_set to store ratings
 const data_set = [];
 class Individual_Data {
   constructor() {
@@ -25,6 +26,11 @@ class Individual_Data {
   }
 }
 
+if (localStorage.getItem('img_trial_number') == null) {
+  localStorage.setItem('img_trial_number', '0')
+}
+
+//grabs each slider and allows for ratings
 var recording = new Individual_Data();
 var range_slider_list = document.getElementsByClassName("rangeslider");
 for (k = 0; k < range_slider_list.length; k++) {
@@ -34,30 +40,25 @@ for (k = 0; k < range_slider_list.length; k++) {
 }
 document.getElementById("sliderRange0").addEventListener("input", function () {
   document.getElementById("demo0").innerHTML = this.value;
-  var used = true;
 })
 document.getElementById("sliderRange1").addEventListener("input", function () {
   document.getElementById("demo1").innerHTML = this.value;
-  var used = true;
 })
 document.getElementById("sliderRange2").addEventListener("input", function () {
   document.getElementById("demo2").innerHTML = this.value;
-  var used = true;
 })
 document.getElementById("sliderRange3").addEventListener("input", function () {
   document.getElementById("demo3").innerHTML = this.value;
-  var used = true;
 })
 document.getElementById("sliderRange4").addEventListener("input", function () {
   document.getElementById("demo4").innerHTML = this.value;
-  var used = true;
 })
 
+//saves data from the ratings
 function save_rating_data() {
   for (i = 0; i < range_slider_list.length; i++) {
     rating = document.getElementById("sliderRange" + i.toString()).value;
     recording.addNewRating(rating, 1);
-
   }
   data_set.push(recording);
   if (localStorage.getItem('data_set') == null) {
@@ -68,17 +69,26 @@ function save_rating_data() {
   localStorage.setItem('data_set', JSON.stringify(recordings));
 }
 
+//load next page
 function load_next_page() {
   window.location.href = "/html/vid_trials.html";
 }
 
+function save_stimulus_data() {
+  if (localStorage.getItem('img_trial_number') == null) {
+    localStorage.setItem('img_trial_number', '0')
+  }
+  img_trial_number = parseInt(localStorage.getItem('img_trial_number'));
+  img_trial_number++;
+  localStorage.setItem('img_trial_number', img_trial_number.toString());
+}
 
 
 var next_button = document.getElementsByClassName("next-page")[0];
 next_button.addEventListener('click', function (event) {
   for (i = 0; i < range_slider_list.length; i++) {
     rating = document.getElementById("sliderRange" + i.toString()).value;
-    if (rating == 1){ 
+    if (rating == 1) {
       alert('Please answer all the questions')
       var button = event.target;
       button.stopPropagation();
@@ -86,6 +96,7 @@ next_button.addEventListener('click', function (event) {
 
   }
   save_rating_data();
+  save_stimulus_data();
   load_next_page();
 }
 )
