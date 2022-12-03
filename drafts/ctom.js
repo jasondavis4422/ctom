@@ -1,9 +1,116 @@
 //check if on browser or server
-if (typeof window !== 'undefined') {
-  console.log('You are on the browser')
-} else {
-  console.log('You are on the server')
+function checkBrowserorServer() {
+  if (typeof window !== 'undefined') {
+    console.log('You are on the browser')
+  } else {
+    console.log('You are on the server')
+  }
 }
+
+function save_participant_data() {
+  var input_name = document.getElementById("Name");
+  var input_ID = document.getElementById("ID");
+  const name = input_name.value;
+  const ID = input_ID.value;
+  if (name && ID) {
+    if (localStorage.getItem('name') == null) {
+      localStorage.setItem('name', name);
+    }
+    if (localStorage.getItem('ID') == null) {
+      localStorage.setItem('ID', ID);
+    }
+    else {
+      alert("Please enter in your data");
+    }
+  }
+}
+
+function load_next_page_intro() {
+  window.location = "/html/img_trials.html";
+}
+
+function save_rating_data() {
+  var recording = new Individual_Data();
+  var range_slider_list = document.getElementsByClassName("rangeslider");
+  for (var i = 0; i < range_slider_list.length; i++) {
+    var rating = document.getElementById("sliderRange" + i.toString()).value;
+    recording.addNewRating(rating, 1);
+  }
+  data_set.push(recording);
+  if (localStorage.getItem('data_set') == null) {
+    localStorage.setItem('data_set', '[]');
+  }
+  var recordings = JSON.parse(localStorage.getItem('data_set'));
+  recordings.push(recording);
+  localStorage.setItem('data_set', JSON.stringify(recordings));
+}
+
+function load_next_page_img() {
+  window.location.href = "/html/vid_trials.html";
+}
+
+function save_stimulus_data_img() {
+  if (localStorage.getItem('img_trial_number') == null) {
+    localStorage.setItem('img_trial_number', '0')
+  }
+  var img_trial_number = parseInt(localStorage.getItem('img_trial_number'));
+  img_trial_number++;
+  localStorage.setItem('img_trial_number', img_trial_number.toString());
+}
+
+function save_stimulus_data_vid() {
+  if (localStorage.getItem('vid_trial_number') == null) {
+    localStorage.setItem('vid_trial_number', '0')
+  }
+  var vid_trial_number = parseInt(localStorage.getItem('vid_trial_number'));
+  vid_trial_number++;
+  localStorage.setItem('vid_trial_number', vid_trial_number.toString());
+}
+
+function save_stimulus_data_collab() {
+  if (localStorage.getItem('collab_trial_number') == null) {
+    localStorage.setItem('collab_trial_number', '0')
+  }
+  var collab_trial_number = parseInt(localStorage.getItem('collab_trial_number'));
+  collab_trial_number++;
+  localStorage.setItem('collab_trial_number', collab_trial_number.toString());
+}
+
+function load_next_page_vid() {
+  window.location.href = "/html/collab_trials.html";
+}
+
+function load_next_trial() {
+  console.log("next trial");
+  window.location.href = "/html/img_trials.html"
+}
+function load_end_page() {
+  console.log('end page');
+  window.location.href = "/html/endpage.html";
+}
+
+function load_next_page_end() {
+  window.location = "introduction.html";
+}
+
+function remove_trial_numbers() {
+  localStorage.removeItem('img_trial_number');
+  localStorage.removeItem('vid_trial_number');
+  localStorage.removeItem('collab_trial_number');
+}
+
+function access_data() {
+  var results_set = [];
+  var name = localStorage.getItem('name');
+  var ID = localStorage.getItem('ID');
+  var data = localStorage.getItem('data_set');
+  var stimulus_info = new Stimuli(parseInt(localStorage.getItem('seed')));
+  const result = new Result(name, ID, data, stimulus_info.getSeedArray());
+  results_set.push(result);
+}
+
+export { checkBrowserorServer, save_participant_data, load_next_page_intro, save_rating_data, load_next_page_img, save_stimulus_data_img }
+export { load_next_page_vid, load_next_trial, load_end_page, load_next_page_end, remove_trial_numbers, access_data, save_stimulus_data_vid, save_stimulus_data_collab }
 
 // participant information  
 const participant_set = [];
@@ -33,8 +140,8 @@ class Stimuli {
       this.seed = seed;
     }
     this.num_of_trials = 3;
-    this.image_arr = ["A", "B", "C"];
-    this.video_arr = ["D", "E", "F"];
+    this.image_arr = ["/images/image1.jpeg", "/images/image2.jpeg", "/images/image3.jpeg"];
+    this.video_arr = ["/images/image1.jpeg", "/images/image2.jpeg", "/images/image3.jpeg"];
     this.seed_arr = ["012", "021", "120", "102", "210", "201"];
   }
   randomGenerate() {
@@ -50,7 +157,6 @@ class Stimuli {
     var myArray = [];
     myArray = this.str.split("");
     return this.image_arr[[myArray[trial_number]]];
-
   }
   generateNextVideo(trial_number) {
     this.str2 = this.seed_arr[this.seed];
@@ -68,10 +174,6 @@ class Stimuli {
     return myArray3;
   }
 }
-const stim = new Stimuli(1);
-console.log(stim.generateNextImage(2))
-console.log(stim.generateNextVideo(2))
-console.log(stim.getSeedArray())
 
 //Data Set Information - make Collective_Data an array of Indiv_Data
 const data_set = [];
@@ -125,7 +227,7 @@ currentTime();
 //<div id = "clock" onload="currentTime()"></div>// (HTML Code)
 
 
-items = '[{"name":"Jason","ID":"f005g23"},{"name":"Jason","ID":"f005g23"}]';
+var items = '[{"name":"Jason","ID":"f005g23"},{"name":"Jason","ID":"f005g23"}]';
 function modifyString(string) {
   for (var i = 0; i < string.length; i++) {
     if (string[i] == "[") {
@@ -144,12 +246,12 @@ function modifyString(string) {
   string = string.replace(/'/g, "");
   return string;
 }
-string2 = modifyString(items);
+var string2 = modifyString(items);
 const myArray = string2.split(",");
-name_array = [];
-ID_array = [];
-for (e = 0; e < myArray.length; e++) {
-  str = myArray[e];
+var name_array = [];
+var ID_array = [];
+for (var e = 0; e < myArray.length; e++) {
+  var str = myArray[e];
   if (str.includes("name") == true) {
     str = str.replace("name", "");
     name_array.push(str);
@@ -159,7 +261,6 @@ for (e = 0; e < myArray.length; e++) {
     ID_array.push(str);
   }
 }
-
 
 class Result {
   constructor(name, ID, data, stimuli) {
@@ -363,9 +464,11 @@ class Result {
   }
 }
 
-var message = '[{"img_ratings":["66","37","68","35","70"],"vid_ratings":[],"collab_ratings":[]},{"img_ratings":[],"vid_ratings":["38","71","33","46","60"],"collab_vid_ratings":[]},{"img_ratings":[],"vid_ratings":[],"collab_vid_ratings":["30","70","36","64","46"]},{"img_ratings":["73","43","70","50","52"],"vid_ratings":[],"collab_vid_ratings":[]},{"img_ratings":[],"vid_ratings":["36","47","29","51","51"],"collab_vid_ratings":[]},{"img_ratings":[],"vid_ratings":[],"collab_vid_ratings":["52","72","59","36","15"]},{"img_ratings":["14","19","52","83","59"],"vid_ratings":[],"collab_vid_ratings":[]},{"img_ratings":[],"vid_ratings":["36","61","41","48","50"],"collab_vid_ratings":[]},{"img_ratings":[],"vid_ratings":[],"collab_vid_ratings":["34","65","35","69","59"]}]';
-var random = new Result("Jason", "f005g23", message);
-console.log(random.return_data(3));
+export { Participant, Stimuli, Individual_Data, Result };
+
+//var message = '[{"img_ratings":["66","37","68","35","70"],"vid_ratings":[],"collab_ratings":[]},{"img_ratings":[],"vid_ratings":["38","71","33","46","60"],"collab_vid_ratings":[]},{"img_ratings":[],"vid_ratings":[],"collab_vid_ratings":["30","70","36","64","46"]},{"img_ratings":["73","43","70","50","52"],"vid_ratings":[],"collab_vid_ratings":[]},{"img_ratings":[],"vid_ratings":["36","47","29","51","51"],"collab_vid_ratings":[]},{"img_ratings":[],"vid_ratings":[],"collab_vid_ratings":["52","72","59","36","15"]},{"img_ratings":["14","19","52","83","59"],"vid_ratings":[],"collab_vid_ratings":[]},{"img_ratings":[],"vid_ratings":["36","61","41","48","50"],"collab_vid_ratings":[]},{"img_ratings":[],"vid_ratings":[],"collab_vid_ratings":["34","65","35","69","59"]}]';
+//var random = new Result("Jason", "f005g23", message);
+
 
 // Data Analysis Notes:
 // By Image/Video: search through every participant in results_set (using for loop)
@@ -379,3 +482,8 @@ console.log(random.return_data(3));
 //analyze effects across participants
 
 //By Both: similar method to previous two?
+
+//Necessary Notes:
+// 1. Load in videos correctly and save videos to the files. I had trouble before because the videos are too big, but we need to add actual videos to the vid_arr.
+// 2. Style the page using CSS to make it look better. Once the site looks good, then this should be the main thing.
+// 3. (IF NECESSARY) Find different storage other than localStorage. However, it is pretty simple to access data by copying the info, especially the ratings.
