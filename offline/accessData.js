@@ -7,10 +7,9 @@ checkBrowserorServer();
 
 var results_set = [];
 var stimulus_info = new Stimuli(5); //grab seed from local storage
-var named = "Jason";
+var named = "Jason Davis";
 var ID = "f005g23";
 //copy data from localStorage
-var data = '[{"img_ratings":["58","36","64","42","86"],"vid_ratings":[],"collab_vid_ratings":["58","36","64","42","86"]},{"img_ratings":["54","81","25","56","41"],"vid_ratings":[],"collab_vid_ratings":["54","81","25","56","41"]},{"img_ratings":["43","41","43","43","35"],"vid_ratings":[],"collab_vid_ratings":["43","41","43","43","35"]},{"img_ratings":["59","98","44","27","51"],"vid_ratings":[],"collab_vid_ratings":["59","98","44","27","51"]},{"img_ratings":["47","38","41","51","64"],"vid_ratings":[],"collab_vid_ratings":["47","38","41","51","64"]},{"img_ratings":["66","29","46","32","18"],"vid_ratings":[],"collab_vid_ratings":["66","29","46","32","18"]},{"img_ratings":["57","33","55","16","38"],"vid_ratings":[],"collab_vid_ratings":["57","33","55","16","38"]},{"img_ratings":["47","47","24","31","35"],"vid_ratings":[],"collab_vid_ratings":["47","47","24","31","35"]},{"img_ratings":["27","48","84","33","41"],"vid_ratings":[],"collab_vid_ratings":["27","48","84","33","41"]}]';
+var data = '[{"img_ratings":["50","53","46","65","50"],"vid_ratings":[],"collab_vid_ratings":["50","53","46","65","50"]},{"img_ratings":["50","76","40","63","50"],"vid_ratings":[],"collab_vid_ratings":["50","76","40","63","50"]},{"img_ratings":["43","65","32","54","34"],"vid_ratings":[],"collab_vid_ratings":["43","65","32","54","34"]},{"img_ratings":["51","45","59","21","44"],"vid_ratings":[],"collab_vid_ratings":["51","45","59","21","44"]},{"img_ratings":["50","70","24","67","29"],"vid_ratings":[],"collab_vid_ratings":["50","70","24","67","29"]},{"img_ratings":["79","62","35","41","34"],"vid_ratings":[],"collab_vid_ratings":["79","62","35","41","34"]},{"img_ratings":["60","54","66","52","57"],"vid_ratings":[],"collab_vid_ratings":["60","54","66","52","57"]},{"img_ratings":["55","65","44","53","50"],"vid_ratings":[],"collab_vid_ratings":["55","65","44","53","50"]},{"img_ratings":["59","57","55","60","34"],"vid_ratings":[],"collab_vid_ratings":["59","57","55","60","34"]}]';
 const result = new Result(named, ID, data, stimulus_info.getSeedArray());
 results_set.push(result);
-console.log(results_set[0].stimuli)
