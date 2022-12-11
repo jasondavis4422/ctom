@@ -1,3 +1,48 @@
+function createFrame() {
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0];
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+}
+
+function onYouTubeIframeAPIReady(vid_id) {
+  var player;
+  player = new YT.Player('player', {
+    height: '390',
+    width: '640',
+    videoId: vid_id,
+    playerVars: {
+      'playsinline': 1
+    },
+    events: {
+      'onReady': onPlayerReady,
+      'onStateChange': onPlayerStateChange
+    }
+  });
+
+}
+
+// 4. The API will call this function when the video player is ready.
+function onPlayerReady(event) {
+  event.target.playVideo();
+}
+
+// 5. The API calls this function when the player's state changes.
+//    The function indicates that when playing a video (state=1),
+//    the player should play for six seconds and then stop.
+function onPlayerStateChange(event) {
+  var done = false;
+  if (event.data == YT.PlayerState.PLAYING && !done) {
+    setTimeout(stopVideo, 100);
+    done = true;
+  }
+}
+function stopVideo() {
+  player.stopVideo();
+}
+
+export { onYouTubeIframeAPIReady, onPlayerReady, onPlayerStateChange, stopVideo, createFrame }
+
 //check if on browser or server
 function checkBrowserorServer() {
   if (typeof window !== 'undefined') {
@@ -10,19 +55,25 @@ function checkBrowserorServer() {
 function save_participant_data() {
   var input_name = document.getElementById("Name");
   var input_ID = document.getElementById("ID");
+  var input_seed = document.getElementById("seed");
   const name = input_name.value;
   const ID = input_ID.value;
-  if (name && ID) {
+  const seed_num = input_seed.value;
+  if (name && ID && seed_num) {
     if (localStorage.getItem('name') == null) {
       localStorage.setItem('name', name);
     }
     if (localStorage.getItem('ID') == null) {
       localStorage.setItem('ID', ID);
     }
-    else {
-      alert("Please enter in your data");
+    if (localStorage.getItem('seed') == null) {
+      localStorage.setItem('seed', seed_num);
     }
   }
+  else {
+    alert("Please enter in your data");
+  }
+
 }
 
 function load_next_page_intro() {
@@ -141,7 +192,7 @@ class Stimuli {
     }
     this.num_of_trials = 3;
     this.image_arr = ["/images/image1.jpeg", "/images/image2.jpeg", "/images/image3.jpeg"];
-    this.video_arr = ["/images/image1.jpeg", "/images/image2.jpeg", "/images/image3.jpeg"];
+    this.video_arr = ["pCMFBlAUC0o", "sXDBXVjKbp8", "lBOpnhOTmT8"];
     this.seed_arr = ["012", "021", "120", "102", "210", "201"];
   }
   randomGenerate() {
