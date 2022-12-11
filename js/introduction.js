@@ -5,12 +5,6 @@ import { load_next_page_vid, load_next_trial, load_end_page, load_next_page_end,
 // check if on browser or server
 checkBrowserorServer();
 
-//set seed order *IMPORTANT --> MUST DO BEFORE EXPERIMENT GOES LIVE
-var temp_intro = new Stimuli(5);
-if (localStorage.getItem('seed') == null) {
-    localStorage.setItem('seed', temp_intro.seed);
-}
-
 //sets up button, also grabs name and ID from input box
 var next_button = document.getElementsByClassName("next-intro")[0];
 

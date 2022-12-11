@@ -1,6 +1,7 @@
 import { Participant, Stimuli, Individual_Data, Result } from "/drafts/ctom.js";
 import { checkBrowserorServer, save_participant_data, load_next_page_intro, save_rating_data, load_next_page_img, save_stimulus_data_img } from "/drafts/ctom.js"
 import { load_next_page_vid, load_next_trial, load_end_page, load_next_page_end, remove_trial_numbers, access_data, save_stimulus_data_vid, save_stimulus_data_collab } from "/drafts/ctom.js"
+import { onYouTubeIframeAPIReady, onPlayerReady, onPlayerStateChange, stopVideo, createFrame } from "/drafts/ctom.js"
 
 //check if on browser or server
 checkBrowserorServer();
@@ -16,9 +17,11 @@ var temp_img_info = new Stimuli(parseInt(localStorage.getItem('seed')));
 var video_trial_number = parseInt(localStorage.getItem('vid_trial_number'));
 var vidButton = document.getElementById('vid-button');
 vidButton.addEventListener('click', function () {
-  document.getElementById('videos').src = temp_img_info.generateNextVideo(video_trial_number);
+  onYouTubeIframeAPIReady(temp_img_info.generateNextVideo(video_trial_number));
+  var default_img = document.getElementById('videos');
+  default_img.remove();
 })
-
+createFrame();
 
 //grabs each slider and allows for ratings
 var recording = new Individual_Data();
