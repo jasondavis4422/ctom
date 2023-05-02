@@ -267,21 +267,6 @@ function modifyString(string) {
   string = string.replace(/'/g, "");
   return string;
 }
-var string2 = modifyString(items);
-const myArray = string2.split(",");
-var name_array = [];
-var ID_array = [];
-for (var e = 0; e < myArray.length; e++) {
-  var str = myArray[e];
-  if (str.includes("name") == true) {
-    str = str.replace("name", "");
-    name_array.push(str);
-  }
-  if (str.includes("ID") == true) {
-    str = str.replace("ID", "")
-    ID_array.push(str);
-  }
-}
 
 class Result {
   constructor(name, ID, data, stimuli) {
